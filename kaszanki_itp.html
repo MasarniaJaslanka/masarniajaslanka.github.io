@@ -10,7 +10,6 @@ body {
     font-family: Arial;
 }
 
-/* 🔶 GÓRNY PASEK - DREWNO */
 .topbar{
     display: flex;
     justify-content: space-between;
@@ -18,19 +17,15 @@ body {
     padding: 0px 20px;
     height: 80px;
     box-sizing: border-box;
-
     background-image: url("drewno.png");
     background-size: cover;
     background-position: center;
-
     box-shadow:
         inset 0 4px 8px rgba(0,0,0,0.35),
         inset 0 -4px 8px rgba(255,255,255,0.08);
-
     border-bottom: 3px solid #3b220f;
 }
 
-/* 🔗 MENU */
 .menu a{
     margin: 0 10px;
     text-decoration: none;
@@ -39,7 +34,6 @@ body {
     text-shadow: 0 1px 2px rgba(0,0,0,0.5);
 }
 
-/* 🏷️ LOGO + NAZWA */
 .brand{
     display: flex;
     align-items: center;
@@ -51,27 +45,71 @@ body {
     text-shadow: 0 1px 2px rgba(0,0,0,0.5);
 }
 
-/* 🖼️ LOGO */
 .logo-img{
     height: 160px;
     width: auto;
     display: block;
 }
 
-/* 🌄 GRAFIKA BEZ PRZYCINANIA */
 .hero-image{
     width: 100%;
     display: flex;
     justify-content: center;
+    position: relative;
 }
 
 .full-img{
     width: 100%;
-    height: auto;   /* ⚡ zapewnia brak ucinania grafiki */
+    height: auto;
     display: block;
 }
 
-/* ===== STOPKA KONTAKTOWA ===== */
+.calc-container{
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+}
+
+.input-box{
+    position: absolute;
+    width: 16.6%;
+    height: 3.05%;
+    background: transparent;
+    border: 2px solid transparent;
+    border-radius: 5px;
+    outline: none;
+    color: white;
+    font-size: 16px;
+    text-align: center;
+    box-sizing: border-box;
+}
+
+.input-box::placeholder{
+    color: white;
+    opacity: 0.9;
+}
+
+.cart-button{
+    position: absolute;
+    left: 83.7%;
+    width: 14.2%;
+    height: 3.05%;
+    background: rgba(20,90,0,0.55);
+    border: 2px solid #5ecb38;
+    border-radius: 5px;
+    color: white;
+    font-size: 14px;
+    font-weight: bold;
+    cursor: pointer;
+    box-sizing: border-box;
+}
+
+.cart-button:hover{
+    background: rgba(35,130,0,0.75);
+}
+
 .footer{
     background: #1f1f1f;
     color: white;
@@ -109,6 +147,12 @@ body {
     .footer-container{
         grid-template-columns: 1fr;
     }
+
+    .input-box,
+    .cart-button{
+        font-size: 10px;
+        border-width: 1px;
+    }
 }
 </style>
 </head>
@@ -130,15 +174,67 @@ body {
     </a>
 </div>
 
-<!-- 🌄 OBRAZ NA CAŁĄ SZEROKOŚĆ, NIC NIE JEST UCIĘTE -->
 <div class="hero-image">
     <img src="kaszanki.png" alt="Grafika" class="full-img">
+
+    <div class="calc-container">
+
+        <input class="input-box" style="top:14.75%; left:64.2%;" id="p1" placeholder="...=0 zł" data-nazwa="Kaszanka" data-cena="16.02" onfocus="startInput(this)" oninput="licz(this)" onblur="sprawdzPuste(this)">
+        <button class="cart-button" style="top:14.75%;" onclick="dodajDoKoszyka('p1')">Dodaj</button>
+
+        <input class="input-box" style="top:19.6%; left:64.2%;" id="p2" placeholder="...=0 zł" data-nazwa="Kaszanka wiejska" data-cena="17.14" onfocus="startInput(this)" oninput="licz(this)" onblur="sprawdzPuste(this)">
+        <button class="cart-button" style="top:19.6%;" onclick="dodajDoKoszyka('p2')">Dodaj</button>
+
+        <input class="input-box" style="top:24.45%; left:64.2%;" id="p3" placeholder="...=0 zł" data-nazwa="Kaszanka grillowa" data-cena="17.68" onfocus="startInput(this)" oninput="licz(this)" onblur="sprawdzPuste(this)">
+        <button class="cart-button" style="top:24.45%;" onclick="dodajDoKoszyka('p3')">Dodaj</button>
+
+        <input class="input-box" style="top:29.3%; left:64.2%;" id="p4" placeholder="...=0 zł" data-nazwa="Pasztet luksusowy pieczony" data-cena="14.15" onfocus="startInput(this)" oninput="licz(this)" onblur="sprawdzPuste(this)">
+        <button class="cart-button" style="top:29.3%;" onclick="dodajDoKoszyka('p4')">Dodaj</button>
+
+        <input class="input-box" style="top:34.15%; left:64.2%;" id="p5" placeholder="...=0 zł" data-nazwa="Pasztet Jasielski" data-cena="11.05" onfocus="startInput(this)" oninput="licz(this)" onblur="sprawdzPuste(this)">
+        <button class="cart-button" style="top:34.15%;" onclick="dodajDoKoszyka('p5')">Dodaj</button>
+
+        <input class="input-box" style="top:39%; left:64.2%;" id="p6" placeholder="...=0 zł" data-nazwa="Podgardlana" data-cena="10.28" onfocus="startInput(this)" oninput="licz(this)" onblur="sprawdzPuste(this)">
+        <button class="cart-button" style="top:39%;" onclick="dodajDoKoszyka('p6')">Dodaj</button>
+
+        <input class="input-box" style="top:43.85%; left:64.2%;" id="p7" placeholder="...=0 zł" data-nazwa="Pasztetowa firmowa" data-cena="10.61" onfocus="startInput(this)" oninput="licz(this)" onblur="sprawdzPuste(this)">
+        <button class="cart-button" style="top:43.85%;" onclick="dodajDoKoszyka('p7')">Dodaj</button>
+
+        <input class="input-box" style="top:48.7%; left:64.2%;" id="p8" placeholder="...=0 zł" data-nazwa="Salceson ozorkowy" data-cena="23.22" onfocus="startInput(this)" oninput="licz(this)" onblur="sprawdzPuste(this)">
+        <button class="cart-button" style="top:48.7%;" onclick="dodajDoKoszyka('p8')">Dodaj</button>
+
+        <input class="input-box" style="top:53%; left:64.2%;" id="p9" placeholder="...=0 zł" data-nazwa="Salceson wieprzowy" data-cena="11.61" onfocus="startInput(this)" oninput="licz(this)" onblur="sprawdzPuste(this)">
+        <button class="cart-button" style="top:53%;" onclick="dodajDoKoszyka('p9')">Dodaj</button>
+
+        <input class="input-box" style="top:57.4%; left:64.2%;" id="p10" placeholder="...=0 zł" data-nazwa="Pasztet myśliwski" data-cena="23.22" onfocus="startInput(this)" oninput="licz(this)" onblur="sprawdzPuste(this)">
+        <button class="cart-button" style="top:57.4%;" onclick="dodajDoKoszyka('p10')">Dodaj</button>
+
+        <input class="input-box" style="top:62.25%; left:64.2%;" id="p11" placeholder="...=0 zł" data-nazwa="Salceson królewski" data-cena="25.98" onfocus="startInput(this)" oninput="licz(this)" onblur="sprawdzPuste(this)">
+        <button class="cart-button" style="top:62.25%;" onclick="dodajDoKoszyka('p11')">Dodaj</button>
+
+        <input class="input-box" style="top:67.1%; left:64.2%;" id="p12" placeholder="...=0 zł" data-nazwa="Pasztetowa wątrobiana" data-cena="18.24" onfocus="startInput(this)" oninput="licz(this)" onblur="sprawdzPuste(this)">
+        <button class="cart-button" style="top:67.1%;" onclick="dodajDoKoszyka('p12')">Dodaj</button>
+
+        <input class="input-box" style="top:71.95%; left:64.2%;" id="p13" placeholder="...=0 zł" data-nazwa="Smalec" data-cena="8.29" onfocus="startInput(this)" oninput="licz(this)" onblur="sprawdzPuste(this)">
+        <button class="cart-button" style="top:71.95%;" onclick="dodajDoKoszyka('p13')">Dodaj</button>
+
+        <input class="input-box" style="top:76.8%; left:64.2%;" id="p14" placeholder="...=0 zł" data-nazwa="Smalec wiejski" data-cena="5.53" onfocus="startInput(this)" oninput="licz(this)" onblur="sprawdzPuste(this)">
+        <button class="cart-button" style="top:76.8%;" onclick="dodajDoKoszyka('p14')">Dodaj</button>
+
+        <input class="input-box" style="top:81.65%; left:64.2%;" id="p15" placeholder="...=0 zł" data-nazwa="Pierogi z mięsem (10 szt.)" data-cena="12.16" onfocus="startInput(this)" oninput="licz(this)" onblur="sprawdzPuste(this)">
+        <button class="cart-button" style="top:81.65%;" onclick="dodajDoKoszyka('p15')">Dodaj</button>
+
+        <input class="input-box" style="top:86.5%; left:64.2%;" id="p16" placeholder="...=0 zł" data-nazwa="Konserwa tyrolska" data-cena="5.53" onfocus="startInput(this)" oninput="licz(this)" onblur="sprawdzPuste(this)">
+        <button class="cart-button" style="top:86.5%;" onclick="dodajDoKoszyka('p16')">Dodaj</button>
+
+        <input class="input-box" style="top:91%; left:64.2%;" id="p17" placeholder="...=0 zł" data-nazwa="Pasztet z indyka" data-cena="18.79" onfocus="startInput(this)" oninput="licz(this)" onblur="sprawdzPuste(this)">
+        <button class="cart-button" style="top:91%;" onclick="dodajDoKoszyka('p17')">Dodaj</button>
+
+    </div>
 </div>
 
-<!-- STOPKA KONTAKTOWA -->
 <div class="footer">
     <div class="footer-container">
-        
         <div class="footer-box">
             <h3>Główne sklepy</h3>
             <p>ul. Lwowska 3<br>ul. Rynek 15</p>
@@ -153,7 +249,6 @@ body {
             <h3>Informacje</h3>
             <p>Godziny otwarcia:<br>Pn–Sb 6:00–22:00</p>
         </div>
-
     </div>
 
     <div class="footer-bottom">
@@ -161,5 +256,135 @@ body {
     </div>
 </div>
 
+<script>
+
+function startInput(input){
+    if(input.value.trim() === ""){
+        input.value = "=0 zł";
+    }
+
+    ustawKursor(input);
+}
+
+function sprawdzPuste(input){
+    if(input.value.trim() === "=0 zł"){
+        input.value = "";
+    }
+}
+
+function ustawKursor(input){
+    let pozycja = input.value.indexOf("=");
+
+    if(pozycja < 0){
+        pozycja = input.value.length;
+    }
+
+    setTimeout(function(){
+        input.setSelectionRange(pozycja, pozycja);
+    }, 0);
+}
+
+function oblicz(input){
+    let cenaKg = parseFloat(input.dataset.cena);
+    let tekst = input.value.toLowerCase();
+    let czescWagi = tekst.split("=")[0];
+
+    czescWagi = czescWagi.replace(/\s/g, "");
+
+    if(czescWagi === ""){
+        return {status:"puste"};
+    }
+
+    let liczba = parseFloat(czescWagi.replace(",", "."));
+
+    if(isNaN(liczba)){
+        return {status:"blad", tekst:czescWagi};
+    }
+
+    let jednostka = czescWagi.replace(/[0-9.,]/g, "");
+    let kg = 0;
+
+    if(jednostka === ""){
+        return {status:"brak-jednostki", tekst:czescWagi};
+    }
+
+    if(jednostka === "k" || jednostka === "d" || jednostka === "da"){
+        return {status:"brak-jednostki", tekst:czescWagi};
+    }
+
+    if(jednostka === "dag"){
+        kg = liczba / 100;
+    }
+    else if(jednostka === "kg"){
+        kg = liczba;
+    }
+    else if(jednostka === "g"){
+        kg = liczba / 1000;
+    }
+    else{
+        return {status:"blad", tekst:czescWagi};
+    }
+
+    let cena = kg * cenaKg;
+
+    return {
+        status:"ok",
+        tekst:czescWagi,
+        cena:cena
+    };
+}
+
+function licz(input){
+    let wynik = oblicz(input);
+
+    if(wynik.status === "puste"){
+        input.value = "=0 zł";
+        ustawKursor(input);
+        return;
+    }
+
+    if(wynik.status === "blad"){
+        input.value = wynik.tekst + "=Błąd";
+        ustawKursor(input);
+        return;
+    }
+
+    if(wynik.status === "brak-jednostki"){
+        input.value = wynik.tekst + "=0 zł";
+        ustawKursor(input);
+        return;
+    }
+
+    input.value = wynik.tekst + "=" + wynik.cena.toFixed(2) + " zł";
+    ustawKursor(input);
+}
+
+function dodajDoKoszyka(inputId){
+    let input = document.getElementById(inputId);
+    let wynik = oblicz(input);
+
+    if(wynik.status !== "ok"){
+        alert("Najpierw wpisz poprawną wagę, np. 20dag, 200g albo 1kg.");
+        return;
+    }
+
+    let produkt = {
+        nazwa: input.dataset.nazwa,
+        waga: wynik.tekst,
+        cenaKg: parseFloat(input.dataset.cena),
+        cena: wynik.cena
+    };
+
+    let koszyk = JSON.parse(localStorage.getItem("koszykJaslanka")) || [];
+    koszyk.push(produkt);
+    localStorage.setItem("koszykJaslanka", JSON.stringify(koszyk));
+
+    alert("Dodano do koszyka: " + produkt.nazwa);
+}
+
+</script>
+
 </body>
 </html>
+
+

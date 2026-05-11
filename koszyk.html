@@ -9,20 +9,18 @@ body {
     margin: 0;
     font-family: Arial;
     background-color: #000;
+    color:white;
 }
 
-/* ===== TOPBAR ===== */
 .topbar{
     display: flex;
     justify-content: space-between;
     align-items: center;
     padding: 0 20px;
     height: 80px;
-
     background-image: url("drewno.png");
     background-size: cover;
     background-position: center;
-
     box-shadow: inset 0 4px 8px rgba(0,0,0,0.35),
                 inset 0 -4px 8px rgba(255,255,255,0.08);
     border-bottom: 3px solid #3b220f;
@@ -49,22 +47,90 @@ body {
     height: 160px;
 }
 
-/* ===== GRAFIKA KOSZYKA ===== */
-.karta{
+.koszyk-obraz{
+    position: relative;
     width: 100%;
-    display: flex;
-    justify-content: center;
 }
 
-.karta img{
-    width: 90%; /* ← TYM STERUJESZ ROZMIAREM */
-    max-width: 1400px;
-    margin-top: 40px;
+.koszyk-obraz img{
+    width: 100%;
+    display: block;
 }
 
-/* ===== STOPKA ===== */
-.footer{
+.suma-cena{
+    position: absolute;
+    top: 43%;
+    left: 8%;
+    width: 17%;
+    text-align: center;
+    color: #d9a44d;
+    font-size: 24px;
+    font-weight: bold;
+}
+
+.liczba-produktow{
+    position: absolute;
+    top: 59%;
+    left: 8%;
+    width: 17%;
+    text-align: center;
+    color: #d9a44d;
+    font-size: 24px;
+    font-weight: bold;
+}
+
+.lista-koszyka{
+    position: absolute;
+    top: 36%;
+    left: 30%;
+    width: 60%;
+    height: 45%;
+    overflow-y: auto;
+    color: #f1d18a;
+    font-size: 18px;
+    box-sizing: border-box;
+    padding: 10px 20px;
+}
+
+.produkt{
+    display: grid;
+    grid-template-columns: 2fr 1fr 1fr 80px;
+    gap: 10px;
+    align-items: center;
+    border-bottom: 1px solid rgba(217,164,77,0.35);
+    padding: 10px 0;
+}
+
+.produkt button{
+    background: rgba(120,30,30,0.85);
+    color: white;
+    border: 1px solid #d9a44d;
+    border-radius: 5px;
+    padding: 6px;
+    cursor: pointer;
+}
+
+.pusty{
+    text-align: center;
     margin-top: 100px;
+    color: #d9a44d;
+    font-size: 24px;
+}
+
+.wyczysc-btn{
+    position: absolute;
+    top: 74%;
+    left: 10%;
+    background: rgba(120,30,30,0.85);
+    color: white;
+    border: 1px solid #d9a44d;
+    border-radius: 6px;
+    padding: 30px 100px;
+    cursor: pointer;
+    font-weight: bold;
+}
+
+.footer{
     background: #1f1f1f;
     color: white;
     padding: 30px 20px;
@@ -100,13 +166,25 @@ body {
     .footer-container{
         grid-template-columns: 1fr;
     }
+
+    .lista-koszyka{
+        font-size: 10px;
+    }
+
+    .produkt{
+        grid-template-columns: 1fr;
+    }
+
+    .suma-cena,
+    .liczba-produktow{
+        font-size: 12px;
+    }
 }
 </style>
 </head>
 
 <body>
 
-<!-- ===== TOPBAR ===== -->
 <div class="topbar">
     <div class="menu">
         <a href="sklep.html">Sklep</a>
@@ -122,12 +200,17 @@ body {
     </a>
 </div>
 
-<!-- ===== KOSZYK (CAŁA GRAFIKA) ===== -->
-<div class="karta">
+<div class="koszyk-obraz">
     <img src="karta.png">
+
+    <div class="suma-cena" id="suma-cena">0 zł</div>
+    <div class="liczba-produktow" id="liczba-produktow">0</div>
+
+    <div class="lista-koszyka" id="lista-koszyka"></div>
+
+    <button class="wyczysc-btn" onclick="wyczyscKoszyk()">Wyczyść</button>
 </div>
 
-<!-- ===== STOPKA ===== -->
 <div class="footer">
     <div class="footer-container">
         
@@ -152,6 +235,61 @@ body {
         © 2026 Jaślanka - wszystkie prawa zastrzeżone
     </div>
 </div>
+
+<script>
+
+function pokazKoszyk(){
+    let koszyk = JSON.parse(localStorage.getItem("koszykJaslanka")) || [];
+
+    let lista = document.getElementById("lista-koszyka");
+    let sumaCena = document.getElementById("suma-cena");
+    let liczbaProduktow = document.getElementById("liczba-produktow");
+
+    let suma = 0;
+
+    koszyk.forEach(function(produkt){
+        suma += produkt.cena;
+    });
+
+    sumaCena.innerHTML = suma.toFixed(2) + " zł";
+    liczbaProduktow.innerHTML = koszyk.length;
+
+    if(koszyk.length === 0){
+        lista.innerHTML = '<div class="pusty">Koszyk jest pusty</div>';
+        return;
+    }
+
+    let html = "";
+
+    koszyk.forEach(function(produkt, index){
+        html += `
+            <div class="produkt">
+                <div>${produkt.nazwa}</div>
+                <div>${produkt.waga}</div>
+                <div>${produkt.cena.toFixed(2)} zł</div>
+                <button onclick="usunProdukt(${index})">Usuń</button>
+            </div>
+        `;
+    });
+
+    lista.innerHTML = html;
+}
+
+function usunProdukt(index){
+    let koszyk = JSON.parse(localStorage.getItem("koszykJaslanka")) || [];
+    koszyk.splice(index, 1);
+    localStorage.setItem("koszykJaslanka", JSON.stringify(koszyk));
+    pokazKoszyk();
+}
+
+function wyczyscKoszyk(){
+    localStorage.removeItem("koszykJaslanka");
+    pokazKoszyk();
+}
+
+pokazKoszyk();
+
+</script>
 
 </body>
 </html>
