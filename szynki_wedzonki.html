@@ -5,111 +5,132 @@
 <title>Jaślanka</title>
 
 <style>
-body {
-    margin: 0;
-    font-family: Arial;
+
+body{
+    margin:0;
+    font-family:Arial;
+    background:#120b05;
 }
 
-/* 🔶 GÓRNY PASEK - DREWNO */
 .topbar{
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    padding: 0px 20px;
-    height: 80px;
-    box-sizing: border-box;
-
-    background-image: url("drewno.png");
-    background-size: cover;
-    background-position: center;
-
-    box-shadow:
-        inset 0 4px 8px rgba(0,0,0,0.35),
-        inset 0 -4px 8px rgba(255,255,255,0.08);
-
-    border-bottom: 3px solid #3b220f;
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    padding:0 20px;
+    height:80px;
+    box-sizing:border-box;
+    background-image:url("drewno.png");
+    background-size:cover;
+    background-position:center;
+    border-bottom:3px solid #3b220f;
 }
 
-/* 🔗 MENU */
 .menu a{
-    margin: 0 10px;
-    text-decoration: none;
-    color: white;
-    font-weight: bold;
-    text-shadow: 0 1px 2px rgba(0,0,0,0.5);
+    margin:0 10px;
+    text-decoration:none;
+    color:white;
+    font-weight:bold;
 }
 
-/* 🏷️ LOGO + NAZWA */
 .brand{
-    display: flex;
-    align-items: center;
-    gap: 10px;
-    text-decoration: none;
-    color: white;
-    font-size: 22px;
-    font-weight: bold;
-    text-shadow: 0 1px 2px rgba(0,0,0,0.5);
+    display:flex;
+    align-items:center;
+    gap:10px;
+    text-decoration:none;
+    color:white;
+    font-size:22px;
+    font-weight:bold;
 }
 
-/* 🖼️ LOGO */
 .logo-img{
-    height: 160px;
-    width: auto;
-    display: block;
+    height:160px;
 }
 
-/* 🌄 GRAFIKA BEZ PRZYCINANIA */
 .hero-image{
-    width: 100%;
-    display: flex;
-    justify-content: center;
+    position:relative;
+    width:100%;
 }
 
 .full-img{
-    width: 100%;
-    height: auto;   /* ⚡ zapewnia brak ucinania grafiki */
-    display: block;
+    width:100%;
+    display:block;
 }
 
-/* ===== STOPKA KONTAKTOWA ===== */
+.calc-container{
+    position:absolute;
+    top:115px;
+    left:0;
+    width:100%;
+}
+
+.input-box{
+    position:absolute;
+    width:16%;
+    height:28px;
+    background:transparent;
+    border:2px solid transparent;
+    border-radius:7px;
+    outline:none;
+    color:white;
+    font-size:17px;
+    text-align:center;
+    box-sizing:border-box;
+}
+
+.input-box::placeholder{
+    color:white;
+    opacity:0.9;
+}
+
+.cart-button{
+    position:absolute;
+    left:83.5%;
+    width:13.5%;
+    height:28px;
+    background:rgba(20,90,0,0.55);
+    border:2px solid #5ecb38;
+    border-radius:7px;
+    color:white;
+    font-size:14px;
+    font-weight:bold;
+    cursor:pointer;
+    box-sizing:border-box;
+}
+
+.cart-button:hover{
+    background:rgba(35,130,0,0.75);
+}
+
 .footer{
-    background: #1f1f1f;
-    color: white;
-    margin-top: 0;
-    padding: 30px 20px;
+    background:#1f1f1f;
+    color:white;
+    padding:30px 20px;
 }
 
 .footer-container{
-    display: grid;
-    grid-template-columns: repeat(3, 1fr);
-    gap: 20px;
-    max-width: 1000px;
-    margin: auto;
+    display:grid;
+    grid-template-columns:repeat(3,1fr);
+    gap:20px;
+    max-width:1000px;
+    margin:auto;
 }
 
 .footer-box{
-    background: #2c2c2c;
-    padding: 15px;
-    border-radius: 10px;
+    background:#2c2c2c;
+    padding:15px;
+    border-radius:10px;
 }
 
 .footer-box h3{
-    margin-top: 0;
-    color: orange;
+    color:orange;
 }
 
 .footer-bottom{
-    text-align: center;
-    margin-top: 20px;
-    font-size: 14px;
-    opacity: 0.7;
+    text-align:center;
+    margin-top:20px;
+    opacity:0.7;
 }
 
-@media (max-width: 700px){
-    .footer-container{
-        grid-template-columns: 1fr;
-    }
-}
 </style>
 </head>
 
@@ -130,36 +151,260 @@ body {
     </a>
 </div>
 
-<!-- 🌄 OBRAZ NA CAŁĄ SZEROKOŚĆ, NIC NIE JEST UCIĘTE -->
 <div class="hero-image">
-    <img src="szynkiwedzonki.png" alt="Grafika" class="full-img">
+
+<img src="szynkiwedzonki.png" class="full-img">
+
+<div class="calc-container">
+
+<input class="input-box" style="top:40px; left:64%;" id="p1" placeholder="...=0 zł" data-nazwa="Szynka Jaślanka" data-cena="34.26" onfocus="startInput(this)" oninput="licz(this)" onblur="sprawdzPuste(this)">
+<button class="cart-button" style="top:40px;" onclick="dodajDoKoszyka('p1')">Dodaj</button>
+
+<input class="input-box" style="top:77px; left:64%;" id="p2" placeholder="...=0 zł" data-nazwa="Szynka z liściem" data-cena="30.94" onfocus="startInput(this)" oninput="licz(this)" onblur="sprawdzPuste(this)">
+<button class="cart-button" style="top:77px;" onclick="dodajDoKoszyka('p2')">Dodaj</button>
+
+<input class="input-box" style="top:115px; left:64%;" id="p3" placeholder="...=0 zł" data-nazwa="Szynka podkarpacka" data-cena="37.58" onfocus="startInput(this)" oninput="licz(this)" onblur="sprawdzPuste(this)">
+<button class="cart-button" style="top:115px;" onclick="dodajDoKoszyka('p3')">Dodaj</button>
+
+<input class="input-box" style="top:150px; left:64%;" id="p4" placeholder="...=0 zł" data-nazwa="Szynka wyborna" data-cena="38.14" onfocus="startInput(this)" oninput="licz(this)" onblur="sprawdzPuste(this)">
+<button class="cart-button" style="top:150px;" onclick="dodajDoKoszyka('p4')">Dodaj</button>
+
+<input class="input-box" style="top:184px; left:64%;" id="p5" placeholder="...=0 zł" data-nazwa="Szynka drobiowa" data-cena="32.06" onfocus="startInput(this)" oninput="licz(this)" onblur="sprawdzPuste(this)">
+<button class="cart-button" style="top:184px;" onclick="dodajDoKoszyka('p5')">Dodaj</button>
+
+<input class="input-box" style="top:225px; left:64%;" id="p6" placeholder="...=0 zł" data-nazwa="Szynka gotowana" data-cena="28.74" onfocus="startInput(this)" oninput="licz(this)" onblur="sprawdzPuste(this)">
+<button class="cart-button" style="top:225px;" onclick="dodajDoKoszyka('p6')">Dodaj</button>
+
+<input class="input-box" style="top:261px; left:64%;" id="p7" placeholder="...=0 zł" data-nazwa="Baleron" data-cena="26.53" onfocus="startInput(this)" oninput="licz(this)" onblur="sprawdzPuste(this)">
+<button class="cart-button" style="top:261px;" onclick="dodajDoKoszyka('p7')">Dodaj</button>
+
+<input class="input-box" style="top:298px; left:64%;" id="p8" placeholder="...=0 zł" data-nazwa="Rolada Jaślanka" data-cena="29.84" onfocus="startInput(this)" oninput="licz(this)" onblur="sprawdzPuste(this)">
+<button class="cart-button" style="top:298px;" onclick="dodajDoKoszyka('p8')">Dodaj</button>
+
+<input class="input-box" style="top:334px; left:64%;" id="p9" placeholder="...=0 zł" data-nazwa="Polędwica Jaślanka" data-cena="30.94" onfocus="startInput(this)" oninput="licz(this)" onblur="sprawdzPuste(this)">
+<button class="cart-button" style="top:334px;" onclick="dodajDoKoszyka('p9')">Dodaj</button>
+
+<input class="input-box" style="top:373px; left:64%;" id="p10" placeholder="...=0 zł" data-nazwa="Schab pieczony" data-cena="33.72" onfocus="startInput(this)" oninput="licz(this)" onblur="sprawdzPuste(this)">
+<button class="cart-button" style="top:373px;" onclick="dodajDoKoszyka('p10')">Dodaj</button>
+
+<input class="input-box" style="top:410px; left:64%;" id="p11" placeholder="...=0 zł" data-nazwa="Boczuś z cebulką" data-cena="27.64" onfocus="startInput(this)" oninput="licz(this)" onblur="sprawdzPuste(this)">
+<button class="cart-button" style="top:410px;" onclick="dodajDoKoszyka('p11')">Dodaj</button>
+
+<input class="input-box" style="top:446px; left:64%;" id="p12" placeholder="...=0 zł" data-nazwa="Filet drobiowy" data-cena="34.26" onfocus="startInput(this)" oninput="licz(this)" onblur="sprawdzPuste(this)">
+<button class="cart-button" style="top:446px;" onclick="dodajDoKoszyka('p12')">Dodaj</button>
+
+<input class="input-box" style="top:484px; left:64%;" id="p13" placeholder="...=0 zł" data-nazwa="Necówka" data-cena="38.68" onfocus="startInput(this)" oninput="licz(this)" onblur="sprawdzPuste(this)">
+<button class="cart-button" style="top:484px;" onclick="dodajDoKoszyka('p13')">Dodaj</button>
+
+<input class="input-box" style="top:520px; left:64%;" id="p14" placeholder="...=0 zł" data-nazwa="Bok gotowany" data-cena="30.94" onfocus="startInput(this)" oninput="licz(this)" onblur="sprawdzPuste(this)">
+<button class="cart-button" style="top:520px;" onclick="dodajDoKoszyka('p14')">Dodaj</button>
+
+<input class="input-box" style="top:557px; left:64%;" id="p15" placeholder="...=0 zł" data-nazwa="Bok wędzony" data-cena="27.64" onfocus="startInput(this)" oninput="licz(this)" onblur="sprawdzPuste(this)">
+<button class="cart-button" style="top:557px;" onclick="dodajDoKoszyka('p15')">Dodaj</button>
+
+<input class="input-box" style="top:595px; left:64%;" id="p16" placeholder="...=0 zł" data-nazwa="Pachwina wędzona" data-cena="12.16" onfocus="startInput(this)" oninput="licz(this)" onblur="sprawdzPuste(this)">
+<button class="cart-button" style="top:595px;" onclick="dodajDoKoszyka('p16')">Dodaj</button>
+
+<input class="input-box" style="top:630px; left:64%;" id="p17" placeholder="...=0 zł" data-nazwa="Podgardle wędzone" data-cena="8.84" onfocus="startInput(this)" oninput="licz(this)" onblur="sprawdzPuste(this)">
+<button class="cart-button" style="top:630px;" onclick="dodajDoKoszyka('p17')">Dodaj</button>
+
+<input class="input-box" style="top:666px; left:64%;" id="p18" placeholder="...=0 zł" data-nazwa="Baleron Jaślanka" data-cena="27.63" onfocus="startInput(this)" oninput="licz(this)" onblur="sprawdzPuste(this)">
+<button class="cart-button" style="top:666px;" onclick="dodajDoKoszyka('p18')">Dodaj</button>
+
+<input class="input-box" style="top:705px; left:64%;" id="p19" placeholder="...=0 zł" data-nazwa="Schab wyborny" data-cena="30.95" onfocus="startInput(this)" oninput="licz(this)" onblur="sprawdzPuste(this)">
+<button class="cart-button" style="top:705px;" onclick="dodajDoKoszyka('p19')">Dodaj</button>
+
+<input class="input-box" style="top:743px; left:64%;" id="p20" placeholder="...=0 zł" data-nazwa="Szynka tradycyjna" data-cena="43.10" onfocus="startInput(this)" oninput="licz(this)" onblur="sprawdzPuste(this)">
+<button class="cart-button" style="top:743px;" onclick="dodajDoKoszyka('p20')">Dodaj</button>
+
+<input class="input-box" style="top:780px; left:64%;" id="p21" placeholder="...=0 zł" data-nazwa="Bok tradycyjny" data-cena="36.48" onfocus="startInput(this)" oninput="licz(this)" onblur="sprawdzPuste(this)">
+<button class="cart-button" style="top:780px;" onclick="dodajDoKoszyka('p21')">Dodaj</button>
+
+<input class="input-box" style="top:815px; left:64%;" id="p22" placeholder="...=0 zł" data-nazwa="Polędwiczka wędzona" data-cena="44.22" onfocus="startInput(this)" oninput="licz(this)" onblur="sprawdzPuste(this)">
+<button class="cart-button" style="top:815px;" onclick="dodajDoKoszyka('p22')">Dodaj</button>
+
+<input class="input-box" style="top:852px; left:64%;" id="p23" placeholder="...=0 zł" data-nazwa="Wędzonka tradycyjna" data-cena="42.56" onfocus="startInput(this)" oninput="licz(this)" onblur="sprawdzPuste(this)">
+<button class="cart-button" style="top:852px;" onclick="dodajDoKoszyka('p23')">Dodaj</button>
+
+<input class="input-box" style="top:888px; left:64%;" id="p24" placeholder="...=0 zł" data-nazwa="Boczek Jaślanka" data-cena="29.84" onfocus="startInput(this)" oninput="licz(this)" onblur="sprawdzPuste(this)">
+<button class="cart-button" style="top:888px;" onclick="dodajDoKoszyka('p24')">Dodaj</button>
+
+<input class="input-box" style="top:928px; left:64%;" id="p25" placeholder="...=0 zł" data-nazwa="Schab z masłem" data-cena="34.26" onfocus="startInput(this)" oninput="licz(this)" onblur="sprawdzPuste(this)">
+<button class="cart-button" style="top:928px;" onclick="dodajDoKoszyka('p25')">Dodaj</button>
+
+<input class="input-box" style="top:965px; left:64%;" id="p26" placeholder="...=0 zł" data-nazwa="Szynka z masłem" data-cena="33.16" onfocus="startInput(this)" oninput="licz(this)" onblur="sprawdzPuste(this)">
+<button class="cart-button" style="top:965px;" onclick="dodajDoKoszyka('p26')">Dodaj</button>
+
+<input class="input-box" style="top:1001px; left:64%;" id="p27" placeholder="...=0 zł" data-nazwa="Żeberko wędzone" data-cena="19.89" onfocus="startInput(this)" oninput="licz(this)" onblur="sprawdzPuste(this)">
+<button class="cart-button" style="top:1001px;" onclick="dodajDoKoszyka('p27')">Dodaj</button>
+
+<input class="input-box" style="top:1039px; left:64%;" id="p28" placeholder="...=0 zł" data-nazwa="Schab tradycyjny" data-cena="16.58" onfocus="startInput(this)" oninput="licz(this)" onblur="sprawdzPuste(this)">
+<button class="cart-button" style="top:1039px;" onclick="dodajDoKoszyka('p28')">Dodaj</button>
+
+<input class="input-box" style="top:1075px; left:64%;" id="p29" placeholder="...=0 zł" data-nazwa="Baleron tradycyjny" data-cena="24.32" onfocus="startInput(this)" oninput="licz(this)" onblur="sprawdzPuste(this)">
+<button class="cart-button" style="top:1075px;" onclick="dodajDoKoszyka('p29')">Dodaj</button>
+
+<input class="input-box" style="top:1115px; left:64%;" id="p30" placeholder="...=0 zł" data-nazwa="Baleron z beczki" data-cena="23.21" onfocus="startInput(this)" oninput="licz(this)" onblur="sprawdzPuste(this)">
+<button class="cart-button" style="top:1115px;" onclick="dodajDoKoszyka('p30')">Dodaj</button>
+
+</div>
 </div>
 
-<!-- STOPKA KONTAKTOWA -->
 <div class="footer">
-    <div class="footer-container">
-        
-        <div class="footer-box">
-            <h3>Główne sklepy</h3>
-            <p>ul. Lwowska 3<br>ul. Rynek 15</p>
-        </div>
+<div class="footer-container">
 
-        <div class="footer-box">
-            <h3>Kontakt</h3>
-            <p>Tel: 532 503 650<br>Email: masarnia_jaślanka@gmail.com</p>
-        </div>
-
-        <div class="footer-box">
-            <h3>Informacje</h3>
-            <p>Godziny otwarcia:<br>Pn–Sb 6:00–22:00</p>
-        </div>
-
-    </div>
-
-    <div class="footer-bottom">
-        © 2026 Jaślanka - wszystkie prawa zastrzeżone
-    </div>
+<div class="footer-box">
+<h3>Główne sklepy</h3>
+<p>ul. Lwowska 3<br>ul. Rynek 15</p>
 </div>
+
+<div class="footer-box">
+<h3>Kontakt</h3>
+<p>Tel: 532 503 650<br>Email: masarnia_jaslanka@gmail.com</p>
+</div>
+
+<div class="footer-box">
+<h3>Informacje</h3>
+<p>Godziny otwarcia:<br>Pn–Sb 6:00–22:00</p>
+</div>
+
+</div>
+
+<div class="footer-bottom">
+© 2026 Jaślanka
+</div>
+</div>
+
+<script>
+
+function startInput(input){
+    if(input.value.trim() === ""){
+        input.value = "=0 zł";
+    }
+
+    ustawKursor(input);
+}
+
+function sprawdzPuste(input){
+    if(input.value.trim() === "=0 zł"){
+        input.value = "";
+    }
+}
+
+function ustawKursor(input){
+    let pozycja = input.value.indexOf("=");
+
+    if(pozycja < 0){
+        pozycja = input.value.length;
+    }
+
+    setTimeout(function(){
+        input.setSelectionRange(pozycja, pozycja);
+    }, 0);
+}
+
+function oblicz(input){
+    let cenaKg = parseFloat(input.dataset.cena);
+    let tekst = input.value.toLowerCase();
+    let czescWagi = tekst.split("=")[0];
+
+    czescWagi = czescWagi.replace(/\s/g, "");
+
+    if(czescWagi === ""){
+        return {status:"puste"};
+    }
+
+    let liczba = parseFloat(czescWagi.replace(",", "."));
+
+    if(isNaN(liczba)){
+        return {status:"blad", tekst:czescWagi};
+    }
+
+    let jednostka = czescWagi.replace(/[0-9.,]/g, "");
+    let kg = 0;
+
+    if(jednostka === ""){
+        return {status:"brak-jednostki", tekst:czescWagi};
+    }
+
+    if(jednostka === "k" || jednostka === "d" || jednostka === "da"){
+        return {status:"brak-jednostki", tekst:czescWagi};
+    }
+
+    if(jednostka === "dag"){
+        kg = liczba / 100;
+    }
+    else if(jednostka === "kg"){
+        kg = liczba;
+    }
+    else if(jednostka === "g"){
+        kg = liczba / 1000;
+    }
+    else{
+        return {status:"blad", tekst:czescWagi};
+    }
+
+    let cena = kg * cenaKg;
+
+    return {
+        status:"ok",
+        tekst:czescWagi,
+        ilosc:liczba,
+        jednostka:jednostka,
+        kg:kg,
+        cena:cena
+    };
+}
+
+function licz(input){
+    let wynik = oblicz(input);
+
+    if(wynik.status === "puste"){
+        input.value = "=0 zł";
+        ustawKursor(input);
+        return;
+    }
+
+    if(wynik.status === "blad"){
+        input.value = wynik.tekst + "=Błąd";
+        ustawKursor(input);
+        return;
+    }
+
+    if(wynik.status === "brak-jednostki"){
+        input.value = wynik.tekst + "=0 zł";
+        ustawKursor(input);
+        return;
+    }
+
+    input.value = wynik.tekst + "=" + wynik.cena.toFixed(2) + " zł";
+    ustawKursor(input);
+}
+
+function dodajDoKoszyka(inputId){
+    let input = document.getElementById(inputId);
+    let wynik = oblicz(input);
+
+    if(wynik.status !== "ok"){
+        alert("Najpierw wpisz poprawną wagę, np. 20dag, 200g albo 1kg.");
+        return;
+    }
+
+    let produkt = {
+        nazwa: input.dataset.nazwa,
+        waga: wynik.tekst,
+        cenaKg: parseFloat(input.dataset.cena),
+        cena: wynik.cena
+    };
+
+    let koszyk = JSON.parse(localStorage.getItem("koszykJaslanka")) || [];
+    koszyk.push(produkt);
+    localStorage.setItem("koszykJaslanka", JSON.stringify(koszyk));
+
+    alert("Dodano do koszyka: " + produkt.nazwa);
+}
+
+</script>
 
 </body>
 </html>
